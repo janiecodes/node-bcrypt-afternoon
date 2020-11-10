@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
+import axios from 'axios';
 
 export default class Header extends Component {
   constructor() {
@@ -29,10 +30,42 @@ export default class Header extends Component {
 
   login() {
     // axios POST to /auth/login here
+    const {username, password} = this.state
+    axios
+    .post('/auth/login', {username, password})
+    .then(user => {
+      this.setState({
+        username: '',
+        password: ''
+      })
+      this.props.updateUser(user.data)
+      //The Header component has access to an updateUser method passed as a prop from the App 
+      //component that will update the user property on state in App. Execute the updateUser 
+      //method from props with user.data as an argument.
+    })
+    .catch(err => alert(err.response.request.response))
+    //This chain of data leads to the string response from our server endpoint if there is an error.
+
   }
 
-  register() {
+register() {
     // axios POST to /auth/register here
+    const {username, password, isAdmin} = this.state
+    axios
+    .post('/auth/register', {username, password, isAdmin})
+    .then(user => {
+      this.setState({
+        username: '',
+        password: ''
+      })
+      this.props.updateUser(user.data)
+      //invoke this.props.updateUser passing in the response data from our request, 
+      //so that we can update the user object on App.js.
+    })
+    .catch(err => {
+      this.setState({ username: '', password: '' })
+      alert(err.response.request.response)
+    })
   }
 
   logout() {

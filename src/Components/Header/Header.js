@@ -70,6 +70,16 @@ register() {
 
   logout() {
     // axios GET to /auth/logout here
+    axios
+    .post('/auth/logout')
+    .then(() => {
+      //don't need use of the response, since it is just the string 'OK' because we 
+      //used the 'sendStatus' method on the backend, so just pass an arrow function without a parameter into the .then
+      this.props.updateUser({});
+      //modify the user object stored on state in App.js by calling the updateUser method passed 
+      //through props from the App component with an empty object so that it clears all user data off of state.
+    })
+    .catch(err => console.log(err))
   }
 
   render() {

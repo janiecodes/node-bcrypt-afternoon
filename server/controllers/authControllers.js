@@ -42,7 +42,14 @@ module.exports = {
             }
             return res.status(200).send(req.session.user);
         }
-    
+    },
+
+    logout: (req, res) => {
+        req.session.destroy();
+        //As the name implies, this destroys the data stored on the user's session object, 
+        //effectively logging the user out.
+
+        res.sendStatus(200)
     }
 
 

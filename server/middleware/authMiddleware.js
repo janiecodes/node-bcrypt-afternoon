@@ -1,3 +1,5 @@
+//request level middleware
+
 module.exports = {
     usersOnly: async (req, res, next) => {
         if(!req.session.user){

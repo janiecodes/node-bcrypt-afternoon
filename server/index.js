@@ -7,7 +7,7 @@ const port = 4000;
 const { SESSION_SECRET, CONNECTION_STRING } = process.env;
 const authCtrl = require('./controllers/authControllers');
 const treasureCtrl = require('./controllers/treasureController')
-const auth = require('./middelware/authMiddleware')
+const auth = require('./middleware/authMiddleware')
 app.use(express.json());
 
 massive({
@@ -16,7 +16,7 @@ massive({
   }).then(db => {
     app.set('db', db);
     console.log('db connected');
-  });
+  }).catch(err => console.log(err));
 
 //top-level middleware
 app.use(

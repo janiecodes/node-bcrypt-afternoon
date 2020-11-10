@@ -38,14 +38,13 @@ export default class Header extends Component {
         username: '',
         password: ''
       })
-      this.props.updateUser(user.data)
+      this.props.updateUser(user.data) //this.props.updateUser come from App.js
       //The Header component has access to an updateUser method passed as a prop from the App 
       //component that will update the user property on state in App. Execute the updateUser 
       //method from props with user.data as an argument.
     })
     .catch(err => alert(err.response.request.response))
     //This chain of data leads to the string response from our server endpoint if there is an error.
-
   }
 
 register() {
